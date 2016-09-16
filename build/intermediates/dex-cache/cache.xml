@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<items version="2" >
+
+    <item
+        jar="C:\Users\Matea\AppData\Local\Android\sdk\extras\android\m2repository\com\android\support\support-v4\18.0.0\support-v4-18.0.0.jar"
+        jumboMode="false"
+        revision="19.1.0"
+        sha1="44ec51e9d395a47aab135e5e1b556c0007442156">
+        <dex dex="D:\Matea\FINKI\Semestar5\Mobilni\android-puzzle-game-master\app\build\intermediates\pre-dexed\debug\support-v4-18.0.0-ad75c3c3dc05ea26996011133eade6bfd8e9e3c6.jar" />
+    </item>
+    <item
+        jar="D:\Matea\FINKI\Semestar5\Mobilni\matea\android-puzzle-game-master\app\build\intermediates\exploded-aar\pl.droidsonroids.gif\android-gif-drawable\1.1.17\jars\classes.jar"
+        jumboMode="false"
+        revision="19.1.0"
+        sha1="7f8c6fd043a9c060badf3fa9b77e51c422af0a8b">
+        <dex dex="D:\Matea\FINKI\Semestar5\Mobilni\matea\android-puzzle-game-master\app\build\intermediates\pre-dexed\debug\classes-79bed792cba238198f737be4e7f77d9e48dd385c.jar" />
+    </item>
+    <item
+        jar="D:\Matea\FINKI\Semestar5\Mobilni\android-puzzle-game-master\app\build\intermediates\exploded-aar\pl.droidsonroids.gif\android-gif-drawable\1.1.17\jars\classes.jar"
+        jumboMode="false"
+        revision="19.1.0"
+        sha1="7f8c6fd043a9c060badf3fa9b77e51c422af0a8b">
+        <dex dex="D:\Matea\FINKI\Semestar5\Mobilni\android-puzzle-game-master\app\build\intermediates\pre-dexed\debug\classes-1d52f26cf4c247131da91cc1827a0be63b260b39.jar" />
+    </item>
+    <item
+        jar="C:\Users\Matea\Downloads\android-puzzle-game-master\app\build\intermediates\exploded-aar\pl.droidsonroids.gif\android-gif-drawable\1.1.17\jars\classes.jar"
+        jumboMode="false"
+        revision="19.1.0"
+        sha1="7f8c6fd043a9c060badf3fa9b77e51c422af0a8b">
+        <dex dex="C:\Users\Matea\Downloads\android-puzzle-game-master\app\build\intermediates\pre-dexed\debug\classes-96770c50e97c19df015736ae5a286b4123925de8.jar" />
+    </item>
+
+</items>

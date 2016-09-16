@@ -1,0 +1,26 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/LinearLayout1"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center|center_horizontal|top"
+    android:orientation="vertical" >
+
+    <ViewSwitcher
+        android:id="@+id/mainMenuViewSwitcher"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_marginTop="46dp" >
+
+        <include
+            android:layout_width="match_parent"
+            android:layout_height="fill_parent"
+            layout="@layout/mainmenu_main" />
+
+        <include
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            layout="@layout/mainmenu_newgame" />
+    </ViewSwitcher>
+
+</LinearLayout><!-- From: file:/D:/Matea/FINKI/Semestar5/Mobilni/matea/android-puzzle-game-master/app/src/main/res/layout/activity_main_menu.xml -->

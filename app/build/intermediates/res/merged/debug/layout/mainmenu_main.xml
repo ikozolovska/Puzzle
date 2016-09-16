@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/LinearLayout1"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center_horizontal"
+    android:orientation="vertical"
+    android:background="@drawable/splash1">
+
+    <!--TextView
+        android:id="@+id/textView1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingBottom="30dp"
+        android:gravity="center"
+        android:text="@string/mainmenu_title"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:textSize="40dp" /-->
+
+    <Button
+        android:id="@+id/button2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="190dp"
+        android:onClick="newGameButtonOnClick"
+        android:background="@drawable/button"
+        android:layout_centerInParent="true"/>
+
+    <!--ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/rubix"/>
+
+    <pl.droidsonroids.gif.GifTextView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/rubix"
+        /-->
+
+
+</RelativeLayout><!-- From: file:/D:/Matea/FINKI/Semestar5/Mobilni/matea/android-puzzle-game-master/app/src/main/res/layout/mainmenu_main.xml -->

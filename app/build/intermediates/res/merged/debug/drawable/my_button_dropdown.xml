@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<shape xmlns:android="http://schemas.android.com/apk/res/android">
+    <gradient android:startColor="#CADDE1"
+        android:endColor="#CADDE1"
+        android:angle="270" />
+    <size android:height="@dimen/padding_large" android:width="@dimen/padding_large"/>
+    <padding
+        android:left="10dp"
+        android:top="10dp"
+        android:right="10dp"
+        android:bottom="10dp"
+        />
+    <corners android:radius="0dp" />
+    <stroke android:width="5px" android:color="#354751" />
+
+</shape>
+<!-- From: file:/D:/Matea/FINKI/Semestar5/Mobilni/matea/android-puzzle-game-master/app/src/main/res/drawable/my_button_dropdown.xml -->

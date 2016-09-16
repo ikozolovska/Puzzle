@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<shape
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:shape="rectangle">
+    <gradient
+        android:startColor="#ffffff"
+        android:endColor="#ffffff"/>
+    <corners
+        android:radius="0dp"/>
+    <stroke android:color="#000000"/>
+</shape>
+<!-- From: file:/D:/Matea/FINKI/Semestar5/Mobilni/matea/android-puzzle-game-master/app/src/main/res/drawable/pause_menu_background.xml -->
