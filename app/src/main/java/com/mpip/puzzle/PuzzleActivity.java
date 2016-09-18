@@ -1,7 +1,9 @@
 package com.mpip.puzzle;
 
 import android.app.Activity;
+import android.app.ActivityManager;
 import android.app.Dialog;
+import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -29,6 +31,8 @@ public class PuzzleActivity extends Activity {
 	GameBoard board;
 	int screenOrientation;
 	Bitmap sourceImage;
+
+	public Intent svc;
 	
 	ViewSwitcher inGameViewSwitcher;
 	
@@ -53,6 +57,7 @@ public class PuzzleActivity extends Activity {
 			case R.id.pausemenu_quitButton:
 //				Intent intent = new Intent(this.getContext(), MainMenuActivity.class);
 //				startActivity(intent);
+				MainMenuActivity.playPlease = false;
 				finish();
 				break;
 			}
@@ -63,9 +68,13 @@ public class PuzzleActivity extends Activity {
 	
     @Override
     public void onCreate(Bundle savedInstanceState) {
+		//svc=new Intent(this, BackgroundSoundService.class);
+		//startService(svc);
         super.onCreate(savedInstanceState);
-        
-        screenOrientation = getIntent().getIntExtra(MainMenuActivity.EXTRA_BOARD_ORIENTATION, 1);
+		//svc=new Intent(this, BackgroundSoundService.class);
+		//startService(svc);
+
+		screenOrientation = getIntent().getIntExtra(MainMenuActivity.EXTRA_BOARD_ORIENTATION, 1);
 
         
         //locking the app in needed position
@@ -102,12 +111,17 @@ public class PuzzleActivity extends Activity {
         PuzzleCreator creator = new PuzzleCreator(sourceImage, board);
         board.loadTiles(creator.createPuzzle());
         board.drawBoard();
-        
-        
+
+
              
     }
 
-    @Override
+	@Override
+	protected void onStart() {
+		super.onStart();
+	}
+
+	@Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.activity_puzzle, menu);
         return true;
@@ -165,10 +179,7 @@ public class PuzzleActivity extends Activity {
 		PauseDialog dialog = new PauseDialog();
 		
 		if(id == DIALOG_PAUSED_ID){
-			
-	       // dialog.setContentView(R.layout.pause_menu);
-	        
-	        
+
 		}
 		return dialog;
 	}
@@ -177,7 +188,16 @@ public class PuzzleActivity extends Activity {
 	public void onBackPressed() {
 		showDialog(DIALOG_PAUSED_ID);
 	}
-	
+
+	@Override
+	protected void onStop() {
+		super.onStop();
+
+		//MainMenuActivity.playPlease = false;
+			stopService(MainMenuActivity.svc);
+		//}
+	}
+
 	public void inGameButtonsOnClick(View view){
 		switch(view.getId()){
 		
@@ -189,6 +209,19 @@ public class PuzzleActivity extends Activity {
 			inGameViewSwitcher.showPrevious();
 			break;
 		}
+	}
+
+	public boolean checkServiceRunning(){
+		ActivityManager manager = (ActivityManager) getSystemService(ACTIVITY_SERVICE);
+		for (ActivityManager.RunningServiceInfo service : manager.getRunningServices(Integer.MAX_VALUE))
+		{
+			if ("com.mpip.puzzle.BackgroundSoundService"
+					.equals(service.service.getClassName()))
+			{
+				return true;
+			}
+		}
+		return false;
 	}
     
 }

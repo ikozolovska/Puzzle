@@ -37,11 +37,11 @@ public class MainMenuActivity extends Activity {
 	
 	public final static int PHOTO_FROM_MEMORY_REQUESTED = 10;
 	public final static int PHOTO_FROM_CAMERA_REQUESTED = 20;
-	public Intent svc;
+	public static Intent svc;
 	public final static String MAIN_FOLDER = "/com.mpip.squaredpuzzle/";
 	
 	private Uri tempPictureUri;
-
+	public static boolean playPlease=false;
 	private ViewSwitcher menuViewSwitcher;
 	private boolean shouldSwitch = true;
 	
@@ -56,7 +56,7 @@ public class MainMenuActivity extends Activity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        
+
         //making the app full screen
         this.requestWindowFeature(Window.FEATURE_NO_TITLE);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
@@ -86,12 +86,11 @@ public class MainMenuActivity extends Activity {
     	menuViewSwitcher.showNext();
 
 		Typeface face=Typeface.createFromAsset(getAssets(),"fonts/ebrima.ttf");
-
+		if(SoundStatus.shouldBePlaying) {
+			startService(svc);
+		}
 		TextView tx = (TextView)findViewById(R.id.textView1);
 		tx.setTypeface(face);
-		//Typeface custom_font = getAssets().open("fonts/ebrima.ttf");//Typeface.createFromAsset(getAssets().open(), "fonts/ebrima.ttf");
-
-		//tx.setTypeface(custom_font);
     	
     }
     
@@ -167,6 +166,7 @@ public class MainMenuActivity extends Activity {
     	intent.putExtra(EXTRA_BOARD_ORIENTATION, orientation);
     	
     	shouldSwitch = true;
+		playPlease = true;
     	startActivity(intent);
     	
     }
@@ -174,10 +174,12 @@ public class MainMenuActivity extends Activity {
 	public void musicOnClick(View View){
 		if (!checkServiceRunning()){
 			startService(svc);
+			SoundStatus.shouldBePlaying = true;
 			musicButton.setBackgroundResource(R.drawable.music);
 		}
 		else{
 			stopService(svc);
+			SoundStatus.shouldBePlaying = false;
 			musicButton.setBackgroundResource(R.drawable.music1);
 		}
 	}
@@ -257,25 +259,53 @@ public class MainMenuActivity extends Activity {
 	}
 
 	@Override
+	protected void onRestart() {
+		super.onRestart();
+		if(SoundStatus.shouldBePlaying){
+			startService(svc);
+		}
+	}
+
+	@Override
 	protected void onResume() {
 		super.onResume();
 		if(shouldSwitch) 
 			if(menuViewSwitcher.getDisplayedChild()==1) 
 				menuViewSwitcher.showPrevious();
-		if (!checkServiceRunning())
+		if (SoundStatus.shouldBePlaying)
 			startService(svc);
 
+	}
+
+	@Override
+	protected void onStart() {
+		super.onStart();
+		if(SoundStatus.shouldBePlaying){
+			startService(svc);
+		}
 	}
 
 	@Override
 	protected void onStop() {
 		super.onStop();
 		stopService(svc);
+		//Toast.makeText(getApplicationContext(), playOnClick() + , Toast.LENGTH_LONG).show();
+
+		if (playPlease && SoundStatus.shouldBePlaying)
+		{
+			startService(svc);
+		}
 	}
 
 	@Override
 	protected void onDestroy() {
 		super.onDestroy();
+		stopService(svc);
+	}
+
+	@Override
+	protected void onPause() {
+		super.onPause();
 		stopService(svc);
 	}
 

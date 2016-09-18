@@ -28,7 +28,7 @@
         <string name="pausemenu_title">GAME PAUSED</string>
         <string name="pausemenu_resume">RESUME</string>
         <string name="pausemenu_quit_to_main">QUIT TO MAIN MENU</string>
-    <string name="title_activity_splash_screeen">SplashScreeen</string>
+    <string name="title_activity_splash_screeen">Puzzle</string>
     <string name="action_settings">Settings</string>
 
 </resources>

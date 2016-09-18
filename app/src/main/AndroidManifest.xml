@@ -19,13 +19,13 @@
         android:theme="@style/AppTheme" >
         <activity
             android:name=".PuzzleActivity"
-            android:label="@string/title_activity_puzzle" >
+            android:label="@string/title_activity_puzzle">
         </activity>
         <activity
             android:name=".MainMenuActivity"
             android:configChanges="orientation"
             android:label="@string/title_activity_main_menu"
-            android:screenOrientation="portrait" >
+            android:screenOrientation="portrait">
 
         </activity>
         <activity

@@ -7,7 +7,7 @@
     <FrameLayout
         android:id="@+id/backgroundLayout"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" >
+        android:layout_height="match_parent">
 
         <RelativeLayout
             android:id="@+id/centerLayout"

@@ -42,7 +42,7 @@
     <string name="title_activity_main_menu">Puzzle</string>
     <string name="title_activity_new_game_menu">NewGameMenuActivity</string>
     <string name="title_activity_puzzle">Puzzle</string>
-    <string name="title_activity_splash_screeen">SplashScreeen</string>
+    <string name="title_activity_splash_screeen">Puzzle</string>
     <!-- From: file:/D:/Matea/FINKI/Semestar5/Mobilni/matea/android-puzzle-game-master/app/src/main/res/values/styles.xml -->
     <eat-comment/>
     <style name="AppTheme" parent="android:Theme.Light.NoTitleBar"/>

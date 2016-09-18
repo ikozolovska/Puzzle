@@ -9,12 +9,11 @@
     <ViewSwitcher
         android:id="@+id/mainMenuViewSwitcher"
         android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
-        android:layout_marginTop="46dp" >
+        android:layout_height="fill_parent">
 
         <include
             android:layout_width="match_parent"
-            android:layout_height="fill_parent"
+            android:layout_height="match_parent"
             layout="@layout/mainmenu_main" />
 
         <include

@@ -100,7 +100,8 @@ containing a value of this type.
         public static final int menu_splash_screeen=0x7f090003;
     }
     public static final class raw {
-        public static final int song=0x7f040000;
+        public static final int pianoloop=0x7f040000;
+        public static final int song=0x7f040001;
     }
     public static final class string {
         public static final int action_settings=0x7f070000;

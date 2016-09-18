@@ -23,7 +23,7 @@ public class BackgroundSoundService extends Service {
     @Override
     public void onCreate() {
         super.onCreate();
-        player = MediaPlayer.create(this, R.raw.song);
+        player = MediaPlayer.create(this, R.raw.pianoloop);
         player.setLooping(true); // Set looping
         player.setVolume(100,100);
 
@@ -47,8 +47,12 @@ public class BackgroundSoundService extends Service {
     }
     public void onPause() {
         player.pause();
-        instance = null;
     }
+
+    public void onResume() {
+        player.start();
+    }
+
     @Override
     public void onDestroy() {
         player.stop();
