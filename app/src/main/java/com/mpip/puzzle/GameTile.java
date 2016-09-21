@@ -11,7 +11,7 @@ import android.widget.RelativeLayout;
 
 public class GameTile extends ImageView {
 
-	public Dimension pos; // position on the board, not on the screen!
+	public Dimension pos;
 	public RelativeLayout.LayoutParams params;
 	private int checkNumber;
 	

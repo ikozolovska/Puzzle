@@ -208,17 +208,8 @@ public class PuzzleCreator {
 		
 		if(sourceImage == null || outputBoardSize == null || outputTileSize <= 0)
 			throw new RuntimeException("Missing parameter to create puzzle");
-		
-		/*
-		//TODO automatic image cropping
-		if(sourceImage.getWidth() != outputBoardSize.x*outputTileSize ||
-				sourceImage.getHeight() != outputBoardSize.y*outputTileSize){
-			throw new RuntimeException("Source image size does not fit with expected output. " +
-					"Is "+ sourceImage.getWidth() + "x" + sourceImage.getHeight()+ ", " +
-					"should be " + outputBoardSize.x*outputTileSize + "x" + outputBoardSize.y*outputTileSize);
-		} */
-		
-		//TODO Make it right, so that proportions will always be preserverd.
+
+
 		Dimension neededRes = new Dimension(outputBoardSize.x*outputTileSize,outputBoardSize.y*outputTileSize);
 		sourceImage = Bitmap.createScaledBitmap(sourceImage, neededRes.x, neededRes.y, true);
 		
@@ -234,13 +225,11 @@ public class PuzzleCreator {
 					Bitmap temp = Bitmap.createBitmap(sourceImage, x*outputTileSize, y*outputTileSize, 
 							outputTileSize, outputTileSize);
 					result.add(new PuzzleTile(new BitmapDrawable(temp), n));
-					//TODO change this deprecated shit to how it should really be.
 				}
 				n++;
 			}
 		}
-		
-		//Everyday I'm shuf-f-fling!
+
 		Randomizer randomizer = new Randomizer(result);
 		randomizer.shuffle();
 		

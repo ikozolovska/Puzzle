@@ -68,9 +68,13 @@ public class MainMenuActivity extends Activity {
         
         //At this point picture has not been chosen yet, so the PLAY button has to be disabled.
         playButton = (Button) findViewById(R.id.playButton);
+		playButton.setAlpha(.5f);
         playButton.setEnabled(false);
 
 		musicButton = (Button) findViewById(R.id.musicButton);
+		if(!SoundStatus.shouldBePlaying) {
+			musicButton.setBackgroundResource(R.drawable.music1);
+		}
 
 		svc=new Intent(this, BackgroundSoundService.class);
 		startService(svc);
@@ -93,16 +97,12 @@ public class MainMenuActivity extends Activity {
 		tx.setTypeface(face);
     	
     }
-    
-    public void backToMainOnClick(View view){
-    	menuViewSwitcher.showPrevious();
-    }
-    
+
     public void pickImageOnClick(View view) {
 		shouldSwitch = false;
     	Intent i = new Intent(Intent.ACTION_PICK,
                 android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-    	startActivityForResult(i, PHOTO_FROM_MEMORY_REQUESTED); 
+    	startActivityForResult(i, PHOTO_FROM_MEMORY_REQUESTED);
     }
     
     
@@ -190,11 +190,13 @@ public class MainMenuActivity extends Activity {
 		
 		if(requestCode == PHOTO_FROM_MEMORY_REQUESTED && resultCode == RESULT_OK){
 			updateSelectedPicture(data.getData());
+			playButton.setAlpha(1.0f);
 			playButton.setEnabled(true);
 		}
 		
 		if(requestCode == PHOTO_FROM_CAMERA_REQUESTED && resultCode == RESULT_OK){
 			updateSelectedPicture(tempPictureUri);
+			playButton.setAlpha(1.0f);
 			playButton.setEnabled(true);
 		}
 		

@@ -48,7 +48,7 @@ public class PuzzleActivity extends Activity {
 		}
 		
 		public void onClick(View v) {
-			
+
 			
 			switch(v.getId()){
 			case R.id.pausemenu_resumeButton:
@@ -101,7 +101,7 @@ public class PuzzleActivity extends Activity {
         //Crating a game board.
         board = new GameBoard(decodeGameSizeFromIntent(),
         		(RelativeLayout) findViewById(R.id.centerLayout), 
-        		screenOrientation, this);
+        		screenOrientation, this, inGameViewSwitcher, (Button)findViewById(R.id.backToGameButton));
         
         sourceImage = loadBitmapFromIntent();
         

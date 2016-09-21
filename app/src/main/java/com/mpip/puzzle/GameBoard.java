@@ -2,14 +2,18 @@ package com.mpip.puzzle;
 
 import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.util.Log;
 import android.view.Display;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.WindowManager;
 import android.view.animation.TranslateAnimation;
+import android.widget.Button;
 import android.widget.RelativeLayout;
 import android.widget.RelativeLayout.LayoutParams;
+import android.widget.ViewSwitcher;
 
 /**
  * 
@@ -28,11 +32,14 @@ public class GameBoard implements OnClickListener{
 	private int tileSize; // length of the side of tile in px, e. g. 160
 	private volatile int counter = 0;
 	private int orientation;
-	
+	public ViewSwitcher ingameViewSwitcher;
 	private GameTile[][] tiles;
 	private GameTile currentTile;
+	Button back;
 	
-	public GameBoard(Dimension gameSize, RelativeLayout scr, int orientation, Context con){
+	public GameBoard(Dimension gameSize, RelativeLayout scr, int orientation, Context con, ViewSwitcher vs, Button bt){
+		back=bt;
+		ingameViewSwitcher=vs;
 		this.gameSize = gameSize;
 		this.screen = scr;
 		this.context = con;
@@ -147,7 +154,6 @@ public class GameBoard implements OnClickListener{
 		for(int x=0; x<gameSize.x; x++){
 			for(int y=0; y<gameSize.y; y++){
 				if(tiles[x][y]==null) {
-					//Log.d("KAMIL", "null at: "+new Dimension(x,y));
 					return new Dimension(x,y);
 				}
 			}
@@ -184,7 +190,7 @@ public class GameBoard implements OnClickListener{
         
         //and the animation starts!
         currentTile = clickedTile;
-        Log.d("KAMIL", "Animation starts! ("+ counter +")");
+        Log.d("Puzzle", "Animation starts! ("+ counter +")");
         anim.setAnimationListener(new TileAnimationListener(clickedTile, this));
         //reDrawBoard();
         clickedTile.startAnimation(anim);
@@ -194,28 +200,48 @@ public class GameBoard implements OnClickListener{
 	//when a tile is clicked
 	synchronized public void onClick(View v) {
 		counter++;
-		
-		//Log.d("KAMIL", "onClick method number " + counter + " was called.");
+
 		
 		GameTile clickedTile = (GameTile) v;
 		if(canBeMoved(clickedTile)==false){
-			//Log.d("KAMIL", "cannot move the tile ("+ counter +")");
 			return;
 		}
-		//Log.d("KAMIL", "Tile " + clickedTile.pos + " clicked, it will move. (" + counter +")");
-		//animateTile(clickedTile, counter);
+
 		moveTileToEmpty(clickedTile);
-		
+
 		if(isSolved()){
+			ingameViewSwitcher.showNext();
 			AlertDialog.Builder builder = new AlertDialog.Builder(context);
 			builder.setMessage("You solved the puzzle! Congratulations!")
 			       .setCancelable(false)
-			       .setPositiveButton("Thanks.", null); 
-			AlertDialog alert = builder.create();
-			alert.show();
+			       .setPositiveButton("Thanks.", new DialogInterface.OnClickListener() {
+					   public void onClick(DialogInterface dialog, int id) {
+						   Intent intent = new Intent(context, MainMenuActivity.class);
+						   context.startActivity(intent);
+						   //dialog.dismiss();
+					   }
+				   })
+					.setNegativeButton("View Picture", new DialogInterface.OnClickListener() {
+						public void onClick(DialogInterface dialog, int id) {
+							back.setOnClickListener(new OnClickListener() {
+								public void onClick(View v)
+								{
+									Intent intent = new Intent(context, MainMenuActivity.class);
+									context.startActivity(intent);
+								}
+							});
+							dialog.dismiss();
+
+
+						}
+					});
+
+						AlertDialog alert = builder.create();
+						alert.show();
+
+					}
+
 		}
-        
-	}
 	
 	synchronized public void moveTileToEmpty(GameTile toMove){
 		Dimension empty = getEmptyPosition(); // getting pos of the empty spot before change
