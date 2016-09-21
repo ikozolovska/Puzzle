@@ -19,16 +19,12 @@ public class TileAnimation implements Runnable, AnimationListener {
 		destination = dest;
 		gameBoard = board;
 	}
-	
-	/* (non-Javadoc)
-	 * @see java.lang.Runnable#run()
-	 */
+
 	public void run() {
 		
 		Dimension empty = gameBoard.getEmptyPosition();
 		Dimension emptyOnScreen = gameBoard.getOnScreenCord(empty);
-		
-		//calculating the translation for animation
+
 		int changeX = 0;
 		int changeY = 0;
 		if(tileToMove.pos.x==empty.x && empty.y==tileToMove.pos.y-1){
@@ -45,15 +41,8 @@ public class TileAnimation implements Runnable, AnimationListener {
 		//setting the animation
 		TranslateAnimation anim = new TranslateAnimation(0, changeX, 0, changeY);
         anim.setDuration(1000);
-        //anim.setFillAfter(true);
-       
-        
-        //after animation need to really change a position of tile
-        //and change position of the empty space
-        //the checker will do that
         anim.setAnimationListener(this);
-        
-        //and the animation starts!
+
        
         tileToMove.startAnimation(anim);
 

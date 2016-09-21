@@ -1,6 +1,3 @@
-/**
- * 
- */
 package com.mpip.puzzle;
 
 import android.graphics.Bitmap;
@@ -20,12 +17,11 @@ public class PuzzleCreator {
 	
 	private class Randomizer{
 		
-		PuzzleTile[][] array; //array of puzzleTiles, will be used to shuffle it.
+		PuzzleTile[][] array;
 		Dimension nullPos;
 		Random gen;
 		
 		public Randomizer(ArrayList<PuzzleTile> list){
-			//Firstly, putting the puzzle in the 2d array, so that is is easier to simulate a board.
 			array = new PuzzleTile[outputBoardSize.x][outputBoardSize.y];
 			int z=0;
 			for(int y=0;y<outputBoardSize.y;y++){
@@ -42,19 +38,14 @@ public class PuzzleCreator {
 			gen = new Random();
 		}
 		
-		/**
-		 * Shuffles the board. To make sure that the puzzle are solvable, it cannot simply shuffle the array,
-		 * but it has to made by randomly moving tiles to empty spot, and that is what the method does.
-		 */
+
 		private void shuffle(){						
-			//Now we simulate moving the tile.
-			int n = 50; // n - the number of moves 
-			//For many tiles 50 is not enough.
+
+			int n = 50;
+
 			if(outputBoardSize.equals(6, 10)) n = 100;
 			
-			
-			// to control which one was previously selected
-			// so that it wont go back at the same place.
+
 			Dimension previous = new Dimension(); 
 			Dimension current = null;
 			for(int i = 0; i<n; i++){
@@ -65,24 +56,17 @@ public class PuzzleCreator {
 				switchToEmpty(current);
 			}
 		}
-		
-		/**
-		 * Simulates move of the tile.
-		 * @param pos Position of the tile to move.
-		 */
+
+
 		private void switchToEmpty(Dimension pos){
 			array[nullPos.x][nullPos.y] = array[pos.x][pos.y];
 			array[pos.x][pos.y] = null;
 			nullPos = new Dimension(pos.x, pos.y);
 		}
 		
-		/**
-		 * Randomly selects a tile that can be moved (i. e. lays next to empty spot.
-		 * @return Position of chosen tile.
-		 */
+
 		private Dimension pickRandomTileToMove(){
 			if(nullPos.equals(0,0)){
-				//Null at upper left corner of the board.
 				switch(gen.nextInt(2)){
 					case 0:
 						return getSouthern(nullPos);
@@ -91,7 +75,6 @@ public class PuzzleCreator {
 				}
 			}
 			else if(nullPos.equals(outputBoardSize.x-1, 0)){
-				//Null at upper right corner.
 				switch(gen.nextInt(2)){
 				case 0:
 					return getSouthern(nullPos);
@@ -100,7 +83,6 @@ public class PuzzleCreator {
 				}
 				
 			}else if(nullPos.equals(0, outputBoardSize.y-1)){
-				//Null at lower left corner.
 				switch(gen.nextInt(2)){
 				case 0:
 					return getNorthern(nullPos);
@@ -108,7 +90,6 @@ public class PuzzleCreator {
 					return getEastern(nullPos);
 				}
 			}else if(nullPos.equals(outputBoardSize.x-1, outputBoardSize.y-1)){
-				//Null at lower right corner.
 				switch(gen.nextInt(2)){
 				case 0:
 					return getNorthern(nullPos);
@@ -116,8 +97,6 @@ public class PuzzleCreator {
 					return getWestern(nullPos);
 				}
 			}else{
-				//Now we have to check if null is on one of sides of the board,
-				//what would mean we have three options.
 				if(nullPos.x==0){
 					switch(gen.nextInt(3)){
 					case 0:
@@ -185,7 +164,7 @@ public class PuzzleCreator {
 			return new Dimension(pos.x-1,pos.y);
 		}
 		
-	} // END OF RANDOMIZER CLASS
+	}
 	
 	
 	
@@ -219,8 +198,7 @@ public class PuzzleCreator {
 		int n = 0;
 		for(int y = 0; y<outputBoardSize.y; y++){
 			for(int x = 0; x<outputBoardSize.x; x++){
-				
-				// If it is not the last tile, that should be empty.
+
 				if(!(x==outputBoardSize.x-1 && y==outputBoardSize.y-1)){
 					Bitmap temp = Bitmap.createBitmap(sourceImage, x*outputTileSize, y*outputTileSize, 
 							outputTileSize, outputTileSize);

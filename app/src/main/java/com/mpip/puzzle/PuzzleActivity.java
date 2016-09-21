@@ -55,8 +55,6 @@ public class PuzzleActivity extends Activity {
 				this.dismiss();
 				break;
 			case R.id.pausemenu_quitButton:
-//				Intent intent = new Intent(this.getContext(), MainMenuActivity.class);
-//				startActivity(intent);
 				MainMenuActivity.playPlease = false;
 				finish();
 				break;
@@ -68,37 +66,26 @@ public class PuzzleActivity extends Activity {
 	
     @Override
     public void onCreate(Bundle savedInstanceState) {
-		//svc=new Intent(this, BackgroundSoundService.class);
-		//startService(svc);
         super.onCreate(savedInstanceState);
-		//svc=new Intent(this, BackgroundSoundService.class);
-		//startService(svc);
 
 		screenOrientation = getIntent().getIntExtra(MainMenuActivity.EXTRA_BOARD_ORIENTATION, 1);
 
-        
-        //locking the app in needed position
         if(screenOrientation == GameBoard.ORIENTATION_PORTRAIT)
         	setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         else
         	setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
-        
-        //making the app full screen
+
         this.requestWindowFeature(Window.FEATURE_NO_TITLE);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, 
                                WindowManager.LayoutParams.FLAG_FULLSCREEN);
         
         setContentView(R.layout.activity_puzzle);
-        
-        //Setting backgrounds to black.
+
         ((RelativeLayout) findViewById(R.id.centerLayout)).setBackgroundColor(Color.BLACK);
         ((FrameLayout) findViewById(R.id.backgroundLayout)).setBackgroundColor(Color.BLACK);
         
         inGameViewSwitcher = (ViewSwitcher) findViewById(R.id.inGameViewSwitcher);
-        
-        //now the fun begins :>
-        
-        //Crating a game board.
+
         board = new GameBoard(decodeGameSizeFromIntent(),
         		(RelativeLayout) findViewById(R.id.centerLayout), 
         		screenOrientation, this, inGameViewSwitcher, (Button)findViewById(R.id.backToGameButton));
@@ -156,11 +143,7 @@ public class PuzzleActivity extends Activity {
         }catch(FileNotFoundException ex){
         	Log.e("LOADING ERROR", "Cannot load picture from the URI given", ex);
         }
-        
-        /*
-        if(selectedImage.getWidth()>selectedImage.getHeight()){
-        	selectedImage = BitmapOperator.rotateBitmap(selectedImage, 90);
-        }*/
+
         
         return selectedImage;
     }
@@ -168,8 +151,6 @@ public class PuzzleActivity extends Activity {
 	@Override
 	protected void onRestart() {
 		super.onRestart();
-		//Intent intent = new Intent(this, MainMenuActivity.class);
-		//startActivity(intent);
 		showDialog(DIALOG_PAUSED_ID);
 	}
 
@@ -193,9 +174,8 @@ public class PuzzleActivity extends Activity {
 	protected void onStop() {
 		super.onStop();
 
-		//MainMenuActivity.playPlease = false;
 			stopService(MainMenuActivity.svc);
-		//}
+
 	}
 
 	public void inGameButtonsOnClick(View view){

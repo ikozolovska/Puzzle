@@ -15,9 +15,7 @@ public class ThreadUtils {
 	}
 	
 	public static void showThreads() { 
-		
-		// Walk up all the way to the root thread group. Taken from the 
-		// same StackOverflow article as listThreads. 
+
         ThreadGroup rootGroup = Thread.currentThread().getThreadGroup();
         ThreadGroup parent;
         while ((parent = rootGroup.getParent()) != null) {
@@ -27,22 +25,14 @@ public class ThreadUtils {
         listThreads(rootGroup, "");
 	}
 	
-	/** 
-     * List all threads and recursively list all subgroup. This method is 
-     * taken from the StackOverflow article at: 
-     * http://stackoverflow.com/questions/1323408/get-a-list-of-all-threads-currently-running-in-java
-     * 
-     * @param group
-     * @param indent
-     */
+
     private static void listThreads(ThreadGroup group, String indent) {
         System.out.println(indent + "Group[" + group.getName() + 
                         ":" + group.getClass()+"]");
         int nt = group.activeCount();
-        Thread[] threads = new Thread[nt*2 + 10]; //nt is not accurate
+        Thread[] threads = new Thread[nt*2 + 10];
         nt = group.enumerate(threads, false);
 
-        // List every thread in the group
         for (int i=0; i<nt; i++) {
             Thread t = threads[i];
             
@@ -50,7 +40,6 @@ public class ThreadUtils {
                         + ":" + t.getClass() + "]");
         }
 
-        // Recursively list all subgroups
         int ng = group.activeGroupCount();
         ThreadGroup[] groups = new ThreadGroup[ng*2 + 10];
         ng = group.enumerate(groups, false);

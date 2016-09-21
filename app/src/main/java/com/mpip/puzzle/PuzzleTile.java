@@ -1,6 +1,3 @@
-/**
- * 
- */
 package com.mpip.puzzle;
 
 import android.graphics.drawable.Drawable;

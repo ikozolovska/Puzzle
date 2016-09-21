@@ -15,10 +15,6 @@ import android.widget.RelativeLayout;
 import android.widget.RelativeLayout.LayoutParams;
 import android.widget.ViewSwitcher;
 
-/**
- * 
- */
-
 
 public class GameBoard implements OnClickListener{
 
@@ -27,9 +23,9 @@ public class GameBoard implements OnClickListener{
 	
 	private RelativeLayout screen;
 	private Context context;
-	private Dimension screenResolution; // e. g. 480 x 854 like defy
-	private Dimension gameSize = null; // e. g. 3 x 5
-	private int tileSize; // length of the side of tile in px, e. g. 160
+	private Dimension screenResolution;
+	private Dimension gameSize = null;
+	private int tileSize;
 	private volatile int counter = 0;
 	private int orientation;
 	public ViewSwitcher ingameViewSwitcher;
@@ -44,8 +40,7 @@ public class GameBoard implements OnClickListener{
 		this.screen = scr;
 		this.context = con;
 		this.orientation = orientation;
-		
-		//If orientatnion is horizontal, we need to flip gameSize.
+
 		if(orientation==ORIENTATION_HORIZONTAL){
 			this.gameSize = new Dimension(gameSize.y, gameSize.x);
 		}
@@ -71,21 +66,16 @@ public class GameBoard implements OnClickListener{
 	}	
 	
 	public void calculateTileSize(){
-		
-		//Getting screen resolution.
+
 		WindowManager wm = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
 		Display display = wm.getDefaultDisplay();
 		screenResolution = new Dimension(display.getWidth(), display.getHeight());
 
 		int tSize = (int) (screenResolution.x/gameSize.x);
 		if(tSize*gameSize.y>screenResolution.y){
-			//That means height of the screen is too small to fit all the tiles.
-			//In this case tile size needs to be recalculated, taking
-			//height as important size, instead of width.
 			tSize = (int) (screenResolution.y/gameSize.y);
 		}
-		
-		//Log.d("KAMIL", "Calculated tile size: "+ tSize);
+
 		tileSize = tSize;
 		
 		
@@ -159,7 +149,7 @@ public class GameBoard implements OnClickListener{
 			}
 		}
 		
-		throw new RuntimeException("No empty space! Not a sinle cell is null! WTF?");
+		throw new RuntimeException("No empty space! Not a single cell is null! WTF?");
 	
 	}
 	
@@ -231,7 +221,6 @@ public class GameBoard implements OnClickListener{
 								}
 							});
 							dialog.dismiss();
-
 
 						}
 					});

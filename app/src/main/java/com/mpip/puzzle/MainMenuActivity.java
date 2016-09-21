@@ -57,7 +57,6 @@ public class MainMenuActivity extends Activity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        //making the app full screen
         this.requestWindowFeature(Window.FEATURE_NO_TITLE);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
 				WindowManager.LayoutParams.FLAG_FULLSCREEN);
@@ -65,8 +64,7 @@ public class MainMenuActivity extends Activity {
         setContentView(R.layout.activity_main_menu);
         menuViewSwitcher = (ViewSwitcher) findViewById(R.id.mainMenuViewSwitcher);
         gameSizeSpinner = (Spinner) findViewById(R.id.newGameMenuGameSizeSpinner);
-        
-        //At this point picture has not been chosen yet, so the PLAY button has to be disabled.
+
         playButton = (Button) findViewById(R.id.playButton);
 		playButton.setAlpha(.5f);
         playButton.setEnabled(false);
@@ -108,14 +106,11 @@ public class MainMenuActivity extends Activity {
     
     public void TakePhotoOnClick(View view){
     	shouldSwitch = false;
-    	//Creating an intent to take a photo.
     	Intent i = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-    	
-    	//Creating a file where temporary picture will be kept.
+
     	File photo = null;
         try
         {
-            // place where to store camera taken picture
             photo = this.createGameFile("puzzle", ".jpg");
             photo.delete();
         }
@@ -128,21 +123,14 @@ public class MainMenuActivity extends Activity {
         }
         
     	tempPictureUri = Uri.fromFile(photo);
-    	
-    	//Passing the uri to the intent.
+
     	i.putExtra(MediaStore.EXTRA_OUTPUT, tempPictureUri);
     	i.putExtra(MediaStore.EXTRA_SCREEN_ORIENTATION, ActivityInfo.SCREEN_ORIENTATION_SENSOR);
 
     	startActivityForResult(i, PHOTO_FROM_CAMERA_REQUESTED); 
     }
     
-    /**
-     * Creates temporary file in .temp directory on the SD card.
-     * @param part filename
-     * @param ext extension
-     * @return the file
-     * @throws Exception
-     */
+
     private File createGameFile(String part, String ext) throws Exception
     {
         File mainDir= Environment.getExternalStorageDirectory();
@@ -160,7 +148,7 @@ public class MainMenuActivity extends Activity {
        	intent.putExtra(EXTRA_GAMESIZE, gameSizes[gameSizeSpinner.getSelectedItemPosition()]);
     	intent.putExtra(EXTRA_IMGURI, imageUri);
     	
-    	int orientation;	//Determining screen orientation.
+    	int orientation;
     	orientation = (selectedImage.getWidth()>selectedImage.getHeight()) ? 
     			GameBoard.ORIENTATION_HORIZONTAL : GameBoard.ORIENTATION_PORTRAIT;
     	intent.putExtra(EXTRA_BOARD_ORIENTATION, orientation);
@@ -202,20 +190,11 @@ public class MainMenuActivity extends Activity {
 		
 		
 	}
-	
-	/**
-	 * Updates selected picture by choosing proper thumbnail and 
-	 * preparing everything to be passed with an intent to start the game.
-	 * @param uri URI containing picture that should be used
-	 */
+
 	private void updateSelectedPicture(Uri uri){
 		try{
-			//Writing uri to the variable that will be later passed with intent.
 			imageUri = uri;
 
-			//scaleImage(uri, 2048);
-
-			//Opening the input stream and receiving Bitmap.
 			InputStream imageStream = getContentResolver().openInputStream(imageUri);
 			selectedImage = BitmapFactory.decodeStream(imageStream);
 
@@ -223,7 +202,6 @@ public class MainMenuActivity extends Activity {
 			iv.setImageDrawable(new BitmapDrawable(selectedImage));
 		
 		}catch(FileNotFoundException ex){
-			//Never gonna happen af far as i know, but still...
 			Log.e("File not found", "Cannot find a file under received URI");
 		}	
 	}
@@ -231,17 +209,14 @@ public class MainMenuActivity extends Activity {
 	public void scaleImage(Uri imgUri, int maxSize){
 
 
-	    // Get the dimensions of the bitmap
 	    BitmapFactory.Options bmOptions = new BitmapFactory.Options();
 	    bmOptions.inJustDecodeBounds = true;
 	    BitmapFactory.decodeFile(imgUri.toString(), bmOptions);
 	    int photoW = bmOptions.outWidth;
 	    int photoH = bmOptions.outHeight;
 
-	 // Determine how much to scale down the image
 	    int scaleFactor = Math.min(photoW/maxSize, photoH/maxSize);
 
-	 // Decode the image file into a Bitmap sized to fill the View
 	    bmOptions.inJustDecodeBounds = false;
 	    bmOptions.inSampleSize = scaleFactor;
 	    bmOptions.inPurgeable = true;
@@ -291,7 +266,6 @@ public class MainMenuActivity extends Activity {
 	protected void onStop() {
 		super.onStop();
 		stopService(svc);
-		//Toast.makeText(getApplicationContext(), playOnClick() + , Toast.LENGTH_LONG).show();
 
 		if (playPlease && SoundStatus.shouldBePlaying)
 		{
